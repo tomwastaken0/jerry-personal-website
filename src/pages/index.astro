@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="py-12 text-center sm:py-20">
+    <p class="mb-3 text-sm font-medium uppercase tracking-widest text-accent-600 dark:text-accent-400">
+      Hi, I'm {SITE.name} 🐼
+    </p>
+    <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
+      Engineering student writing, building, and learning in public.
+    </h1>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
+      I write about engineering, tech, and the projects I'm working on — plus the
+      books I read and things I watch.
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a href="/projects" class="rounded-lg bg-accent-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-700">
+        View my projects
+      </a>
+      <a href="/blog" class="rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-semibold transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800">
+        Read the blog
+      </a>
+    </div>
+  </section>
+
+  <!-- Latest posts -->
+  {posts.length > 0 && (
+    <section class="mt-8">
+      <div class="mb-6 flex items-baseline justify-between">
+        <h2 class="text-2xl font-semibold tracking-tight">Latest writing</h2>
+        <a href="/blog" class="text-sm font-medium text-accent-600 hover:underline dark:text-accent-400">All posts →</a>
+      </div>
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <li class="rounded-2xl border border-zinc-200 p-5 transition hover:shadow-md dark:border-zinc-800">
+            <a href={`/blog/${post.id}/`} class="block">
+              <time class="text-xs text-zinc-500" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+              <h3 class="mt-1 font-semibold leading-snug">{post.data.title}</h3>
+              <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{post.data.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: toggled by adding `.dark` to <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens (fresh / modern / minimal). */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Accent palette (emerald) — used for links, highlights, buttons. */
+  --color-accent-50: #ecfdf5;
+  --color-accent-100: #d1fae5;
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+}
+
+/* Base element styles. */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-zinc-800 antialiased;
+  font-family: var(--font-sans);
+}
+
+.dark body {
+  @apply bg-zinc-950 text-zinc-200;
+}
+
+/* Reusable readable prose width for long-form content. */
+.prose-readable {
+  @apply mx-auto max-w-2xl leading-relaxed;
+}
+
+/* Article body typography (blog posts). */
+.article :where(h2) {
+  @apply mt-10 mb-3 text-2xl font-semibold tracking-tight;
+  font-family: var(--font-serif);
+}
+.article :where(h3) {
+  @apply mt-8 mb-2 text-xl font-semibold tracking-tight;
+}
+.article :where(p) {
+  @apply my-4 leading-7;
+}
+.article :where(ul) {
+  @apply my-4 list-disc pl-6;
+}
+.article :where(ol) {
+  @apply my-4 list-decimal pl-6;
+}
+.article :where(li) {
+  @apply my-1;
+}
+.article :where(a) {
+  @apply text-accent-600 underline underline-offset-2 hover:text-accent-700;
+}
+.dark .article :where(a) {
+  @apply text-accent-400 hover:text-accent-100;
+}
+.article :where(blockquote) {
+  @apply my-6 border-l-4 border-accent-500 pl-4 italic text-zinc-600;
+}
+.dark .article :where(blockquote) {
+  @apply text-zinc-400;
+}
+.article :where(img) {
+  @apply my-6 rounded-xl;
+}
+.article :where(pre) {
+  @apply my-6 overflow-x-auto rounded-xl p-4 text-sm;
+}
+.article :where(:not(pre) > code) {
+  @apply rounded bg-zinc-100 px-1.5 py-0.5 text-sm;
+}
+.dark .article :where(:not(pre) > code) {
+  @apply bg-zinc-800;
+}

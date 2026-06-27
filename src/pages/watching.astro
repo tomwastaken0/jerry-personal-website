@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('watching')).sort((a, b) => {
+  const da = a.data.dateWatched?.valueOf() ?? 0;
+  const db = b.data.dateWatched?.valueOf() ?? 0;
+  return db - da;
+});
+
+const stars = (n?: number) => (n ? '★'.repeat(n) + '☆'.repeat(5 - n) : '');
+---
+
+<BaseLayout title="Watching" description="Films and shows I've watched, with quick takes.">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Watching</h1>
+    <p class="mt-2 text-zinc-600 dark:text-zinc-400">Films and shows I've watched, with quick takes.</p>
+  </header>
+
+  {items.length === 0 ? (
+    <p class="text-zinc-500">Watchlist coming soon.</p>
+  ) : (
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((item) => (
+        <article class="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
+          {item.data.poster && (
+            <img src={item.data.poster} alt={item.data.title} class="h-48 w-full object-cover" loading="lazy" />
+          )}
+          <div class="p-4">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="font-semibold">
+                {item.data.link ? (
+                  <a href={item.data.link} target="_blank" rel="noopener" class="hover:text-accent-600 hover:underline dark:hover:text-accent-400">{item.data.title} ↗</a>
+                ) : (
+                  item.data.title
+                )}
+              </h3>
+              <span class="rounded-full bg-zinc-100 px-2 py-0.5 text-xs capitalize text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">{item.data.type}</span>
+            </div>
+            {item.data.rating && <p class="mt-1 text-sm text-accent-600 dark:text-accent-400" title={`${item.data.rating}/5`}>{stars(item.data.rating)}</p>}
+            {item.body && item.body.trim() && (
+              <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{item.body.trim()}</p>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
+</BaseLayout>

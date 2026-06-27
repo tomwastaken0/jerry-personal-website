@@ -1,0 +1,20 @@
+---
+import { SOCIALS, SITE } from '../site';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-20 border-t border-zinc-200 dark:border-zinc-800">
+  <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 py-8 text-sm text-zinc-500 sm:flex-row dark:text-zinc-400">
+    <p>© {year} {SITE.name}. Built with Astro.</p>
+    <ul class="flex items-center gap-4">
+      {SOCIALS.map((s) => (
+        <li>
+          <a href={s.href} class="hover:text-accent-600 dark:hover:text-accent-400" rel="me noopener" target="_blank">{s.label}</a>
+        </li>
+      ))}
+      <li>
+        <a href="/rss.xml" class="hover:text-accent-600 dark:hover:text-accent-400">RSS</a>
+      </li>
+    </ul>
+  </div>
+</footer>

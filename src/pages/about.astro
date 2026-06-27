@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../site';
+---
+
+<BaseLayout title="About" description="A little about Jerry Ng.">
+  <div class="mx-auto max-w-2xl">
+    <!-- Header: avatar + name. Centered on mobile, side-by-side on larger screens. -->
+    <div class="flex flex-col items-center gap-5 text-center sm:flex-row sm:items-center sm:text-left">
+      <!-- Avatar. Shows your photo if public/images/profile.jpg exists; otherwise
+           a friendly placeholder. The img sits on top of the placeholder and
+           removes itself if the file is missing, revealing the placeholder. -->
+      <div class="relative h-56 w-56 shrink-0 overflow-hidden rounded-2xl bg-accent-50 shadow-sm dark:bg-zinc-800">
+        <span class="absolute inset-0 flex items-center justify-center text-8xl" aria-hidden="true">🐼</span>
+        <img
+          src="/images/profile.jpg"
+          alt="Jerry Ng"
+          class="relative h-full w-full object-cover object-[center_25%]"
+          onerror="this.remove()"
+        />
+      </div>
+
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About me</h1>
+        <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+          Industrial &amp; Systems Engineering student
+        </p>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="mt-8 space-y-4 text-zinc-700 dark:text-zinc-300">
+      <p class="text-lg">
+        Hey there! I'm {SITE.name}, an undergraduate Industrial &amp; Systems
+        Engineering student at the National University of Singapore.
+      </p>
+      <p>
+        I'm interested in optimisation, simulation, and using data to make better
+        decisions — from constrained optimisation and Monte Carlo modelling to
+        supply management and marketing. I've had the chance to work across the
+        technical and business sides of engineering, including a simulation
+        engineering internship and product-launch campaigns for global brands.
+      </p>
+      <p>
+        In my downtime, I love coding, exploring new tech, and working on personal
+        projects. I'm also a huge fan of computer games and love experimenting with
+        new recipes in the kitchen. Thanks for visiting — feel free to{' '}
+        <a href="/contact" class="text-accent-600 underline underline-offset-2 dark:text-accent-400">reach out</a>{' '}
+        if you want to chat about engineering, tech, gaming, or cooking.
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      {SITE.resume && (
+        <a href={SITE.resume} class="rounded-lg bg-accent-600 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-700">Download CV (PDF)</a>
+      )}
+      <a href="/cv" class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800">View CV</a>
+    </div>
+  </div>
+</BaseLayout>

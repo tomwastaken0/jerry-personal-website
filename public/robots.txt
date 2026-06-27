@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jerry-ng.pages.dev/sitemap-index.xml

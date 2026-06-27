@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const books = (await getCollection('books')).sort((a, b) => {
+  const da = a.data.dateFinished?.valueOf() ?? 0;
+  const db = b.data.dateFinished?.valueOf() ?? 0;
+  return db - da;
+});
+
+const stars = (n?: number) => (n ? '★'.repeat(n) + '☆'.repeat(5 - n) : '');
+const statusLabel: Record<string, string> = {
+  read: 'Read',
+  reading: 'Currently reading',
+  'want-to-read': 'Want to read',
+};
+---
+
+<BaseLayout title="Books" description="Books I've read, am reading, and want to read.">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Books</h1>
+    <p class="mt-2 text-zinc-600 dark:text-zinc-400">A running log of what I'm reading, with short takes.</p>
+  </header>
+
+  {books.length === 0 ? (
+    <p class="text-zinc-500">Reading list coming soon.</p>
+  ) : (
+    <ul class="divide-y divide-zinc-200 dark:divide-zinc-800">
+      {books.map((book) => (
+        <li class="flex gap-4 py-5">
+          {book.data.cover && (
+            <img src={book.data.cover} alt={book.data.title} class="h-24 w-16 shrink-0 rounded object-cover shadow-sm" loading="lazy" />
+          )}
+          <div>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <h3 class="font-semibold">
+                {book.data.link ? (
+                  <a href={book.data.link} target="_blank" rel="noopener" class="hover:text-accent-600 hover:underline dark:hover:text-accent-400">{book.data.title} ↗</a>
+                ) : (
+                  book.data.title
+                )}
+              </h3>
+              <span class="text-sm text-zinc-500">by {book.data.author}</span>
+            </div>
+            <div class="mt-1 flex flex-wrap items-center gap-x-3 text-sm">
+              {book.data.rating && <span class="text-accent-600 dark:text-accent-400" title={`${book.data.rating}/5`}>{stars(book.data.rating)}</span>}
+              <span class="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">{statusLabel[book.data.status]}</span>
+            </div>
+            {book.body && book.body.trim() && (
+              <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{book.body.trim()}</p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
