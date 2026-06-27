@@ -37,10 +37,10 @@ export const WEB3FORMS_KEY = '50e34849-bb08-42e9-b1d9-8fbcd32ae69a';
 // https://github.com/apps/giscus, (4) configure at https://giscus.app —
 // paste the generated values here to turn comments on.
 export const GISCUS = {
-  repo: '', // e.g. 'jerryng/personal-website'
-  repoId: '',
+  repo: 'tomwastaken0/jerry-personal-website',
+  repoId: 'R_kgDOTGn1oA',
   category: 'Announcements',
-  categoryId: '',
+  categoryId: 'DIC_kwDOTGn1oM4C__QM',
 };
 
 // Privacy-friendly analytics (Cloudflare Web Analytics). After deploying to
