@@ -30,7 +30,7 @@ export const SOCIALS = [
 
 // Contact form (Web3Forms). Get a free access key at https://web3forms.com
 // (just enter your email — no account needed). Paste it here to activate the form.
-export const WEB3FORMS_KEY = ''; // e.g. 'a1b2c3d4-....'
+export const WEB3FORMS_KEY = '50e34849-bb08-42e9-b1d9-8fbcd32ae69a';
 
 // Comments (Giscus). After you: (1) push this repo to GitHub (public),
 // (2) enable the Discussions tab, (3) install the giscus app at
