@@ -45,4 +45,4 @@ export const GISCUS = {
 
 // Privacy-friendly analytics (Cloudflare Web Analytics). After deploying to
 // Cloudflare Pages, create a Web Analytics site and paste the token here.
-export const ANALYTICS_TOKEN = '';
+export const ANALYTICS_TOKEN = 'e86578d50d084fd5bffb1f7d4e4e8cbc';
