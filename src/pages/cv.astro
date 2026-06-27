@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../site';
+
+// Edit your CV here. These arrays drive the page below — just update the data.
+// Keep this in sync with your résumé PDF in public/.
+const experience = [
+  {
+    role: 'Simulation Engineering Intern',
+    org: 'DSO National Laboratories',
+    location: 'Singapore',
+    period: 'May 2026 – Aug 2026',
+    points: [
+      'Developed Python/FreeCAD automation pipelines to generate parametric engineering models, cutting manual model setup from ~30 minutes to under 2 minutes per model.',
+      'Treated layout generation and model cleaning as constrained optimisation/validation problems; implemented geometric checks to resolve room/wall intersections and scale scenario generation.',
+      'Implemented CUDA-parallelised Monte Carlo simulations of projectile trajectory and impact behaviour, producing risk-weighted outputs for engineering decision analysis.',
+    ],
+  },
+  {
+    role: 'Company Quartermaster Sergeant',
+    org: 'Singapore Armed Forces (SAF)',
+    location: 'Singapore',
+    period: 'Feb 2022 – Feb 2024',
+    points: [
+      'Managed $10M+ inventory across units; built Excel asset & lifecycle tracking to streamline supply workflows and improve audit-ready records.',
+      'Analyzed maintenance and inventory datasets to optimise resource allocation, cut downtime, and sharpen demand forecasting for procurement and scheduling.',
+    ],
+  },
+  {
+    role: 'Junior Marketing Coordinator',
+    org: 'STERIS Life Sciences',
+    location: 'Singapore',
+    period: 'Oct 2021 – Jan 2022',
+    points: [
+      'Analyzed competitor intelligence to shape strategy and executed regional campaigns, delivering a complete product-launch package and two promotional flyers.',
+    ],
+  },
+];
+
+const education = [
+  {
+    school: 'National University of Singapore (NUS)',
+    degree: 'B.Eng. (Hons) Industrial & Systems Engineering',
+    location: 'Singapore',
+    period: 'Aug 2024 – Present',
+    points: ['NUS Merit Scholarship', 'Current CAP: 4.65 / 5.0'],
+  },
+];
+
+const skills = [
+  { group: 'Programming', items: ['Python', 'Java', 'C', 'SQL', 'HTML', 'React'] },
+  { group: 'Analytics & Optimisation', items: ['Linear Programming', 'Mixed-Integer Programming', 'Monte Carlo Simulation', 'Data Analysis'] },
+  { group: 'Tools & Frameworks', items: ['FastAPI', 'AWS Bedrock', 'Excel (Advanced)', 'SAP', 'Git'] },
+];
+
+const activities = [
+  {
+    name: 'SimplifyNext Agentic AI Hackathon — Team Member',
+    period: 'Aug 2025 – Sep 2025',
+    points: ['Built SkillPilot: a SG SkillsFuture course recommender (React/FastAPI; Bedrock-Claude; SSG-WSG OAuth2) with NLP résumé parsing and cosine similarity to rank courses and sequence learning paths.'],
+  },
+  {
+    name: 'NUS ISE Business Analytics Case Challenge (BACC) — Team Member',
+    period: 'Mar 2025',
+    points: [
+      'Optimised fab capacity planning: matched wafer starts to demand via LP/MIP under capacity & smoothing constraints, improving line loading and cutting backlog risk.',
+      'Ran Monte Carlo on cycle times to size tooling/CAPEX and delivered a risk-weighted investment plan.',
+    ],
+  },
+  {
+    name: "HTX Investigators' Challenge — Team Member",
+    period: 'Dec 2021',
+    points: ['Performed cryptanalysis, reverse engineering, and Python scripting to decrypt messages and uncover vulnerabilities.'],
+  },
+];
+
+const achievements = [
+  'BACC (NUS ISE × Micron) — 3rd Runner-Up, ~100 teams (2024)',
+  "HTX Investigators' Challenge — Exploiter Award for cryptography (2021)",
+];
+---
+
+<BaseLayout title="CV" description="Jerry Ng's experience, education, and skills.">
+  <div class="prose-readable mx-0 max-w-3xl">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{SITE.name}</h1>
+        <p class="mt-1 text-zinc-600 dark:text-zinc-400">Industrial &amp; Systems Engineering student · NUS</p>
+      </div>
+      {SITE.resume && (
+        <a href={SITE.resume} target="_blank" class="shrink-0 rounded-lg bg-accent-600 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-700">Download PDF</a>
+      )}
+    </div>
+
+    <!-- Experience -->
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight">Experience</h2>
+      <div class="mt-4 space-y-6">
+        {experience.map((e) => (
+          <div class="border-l-2 border-zinc-200 pl-4 dark:border-zinc-800">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="font-semibold">{e.role} · <span class="font-normal text-zinc-600 dark:text-zinc-400">{e.org}</span></h3>
+              <span class="text-sm text-zinc-500">{e.period}</span>
+            </div>
+            <ul class="mt-2 list-disc pl-5 text-sm text-zinc-600 dark:text-zinc-400">
+              {e.points.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight">Education</h2>
+      <div class="mt-4 space-y-6">
+        {education.map((e) => (
+          <div class="border-l-2 border-zinc-200 pl-4 dark:border-zinc-800">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="font-semibold">{e.degree} · <span class="font-normal text-zinc-600 dark:text-zinc-400">{e.school}</span></h3>
+              <span class="text-sm text-zinc-500">{e.period}</span>
+            </div>
+            <ul class="mt-2 list-disc pl-5 text-sm text-zinc-600 dark:text-zinc-400">
+              {e.points.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight">Skills</h2>
+      <div class="mt-4 grid gap-4 sm:grid-cols-3">
+        {skills.map((s) => (
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-500">{s.group}</h3>
+            <ul class="mt-2 flex flex-wrap gap-2">
+              {s.items.map((i) => (
+                <li class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs dark:bg-zinc-800">{i}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Activities -->
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight">Activities</h2>
+      <div class="mt-4 space-y-6">
+        {activities.map((a) => (
+          <div class="border-l-2 border-zinc-200 pl-4 dark:border-zinc-800">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="font-semibold">{a.name}</h3>
+              <span class="text-sm text-zinc-500">{a.period}</span>
+            </div>
+            <ul class="mt-2 list-disc pl-5 text-sm text-zinc-600 dark:text-zinc-400">
+              {a.points.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight">Achievements</h2>
+      <ul class="mt-4 list-disc pl-5 text-sm text-zinc-600 dark:text-zinc-400">
+        {achievements.map((a) => <li>{a}</li>)}
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
