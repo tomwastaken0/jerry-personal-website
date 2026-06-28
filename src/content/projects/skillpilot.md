@@ -4,7 +4,7 @@ description: "An AI résumé reviewer and agentic course recommender for Singapo
 tech: ["React", "FastAPI", "Python", "Groq (Llama 3.3)", "AI Agents", "NLP"]
 github: "https://github.com/tomwastaken0/SkillPilot"
 featured: true
-order: 1
+order: 3
 ---
 
 Built at the **SimplifyNext Agentic AI Hackathon** (Aug–Sep 2025). SkillPilot
